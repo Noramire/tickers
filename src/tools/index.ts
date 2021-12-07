@@ -9,6 +9,7 @@ type Episode = {
   raw_date?: string;
   date: number;
   value: number;
+  isValueNull: boolean;
 };
 
 type Ticker = {
@@ -17,6 +18,12 @@ type Ticker = {
   name: string;
   type: string;
   series: Episode[]
+};
+
+type Filter = {
+  startDate: number | null;
+  endDate: number | null;
+  types: string[];
 };
 
 /**
@@ -65,7 +72,7 @@ const validateUser = async () => {
 
 const getData = async () => {
   if (await validateUser()) {
-    const response = new Promise<Ticker[]>((res) => {
+    const response = new Promise<Partial<Ticker>[]>((res) => {
       setTimeout(async () => {
         const r = await fetch('/data.json', { method: 'GET' });
         res(await r.json());
@@ -97,16 +104,17 @@ const binarySearch = (series: Episode[], time: number): number => {
     }
   }
 
-  if (series.length >= 2) {
-    const guess1 = series[guess + 1] ? guess + 1 : guess - 1;
-
-    return Math.abs(series[guess].date - time)
-      >= Math.abs(series[guess1].date - time)
-      ? series[guess1].value
-      : series[guess].value;
+  if (max < 0) {
+    return series[min].value;
   }
 
-  return series[guess].value;
+  if (min >= series.length) {
+    return series[max].value;
+  }
+
+  return Math.abs(series[min].date - time) < Math.abs(time - series[max].date)
+    ? series[min].value
+    : series[max].value;
 };
 
 export {
@@ -120,4 +128,5 @@ export type {
   User,
   Ticker,
   Episode,
+  Filter,
 };
