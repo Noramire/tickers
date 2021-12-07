@@ -71,13 +71,14 @@ export default class TForm extends Vue {
 
   isFormValid = false;
   loading = false;
-  // TODO: убрать текст
-  email = 'invest@invest.rhonda';
+  // invest@invest.rhonda
+  email = '';
   emailRules = [
     (v: string) => !!v || 'Электронная почта обязательна',
     (v: string) => /.+@.+\..+/.test(v) || 'Электронная почта должна быть действительной',
   ];
-  password = '123456';
+  // 123456
+  password = '';
   passwordVisibility = false;
   passwordRules = [
     (v: string) => !!v || 'Пароль обязателен',
