@@ -13,7 +13,7 @@ import Component from 'vue-class-component';
 import { Prop, Watch, Ref } from 'vue-property-decorator';
 import ApexCharts from 'vue-apexcharts';
 import { ApexOptions } from 'apexcharts';
-import { Ticker, Filter } from '@/tools';
+import type { Ticker, Filter } from '@/tools/types';
 
 @Component({
   components: {
@@ -45,8 +45,8 @@ export default class TChart extends Vue {
   mounted() {
     if (this.ticker) {
       this.onTickerChanged(this.ticker);
-      this.updateAnnotations();
     }
+    this.updateAnnotations();
   }
 
   @Watch('ticker')

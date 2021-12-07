@@ -27,6 +27,7 @@
           :rules="emailRules"
           label="Электронная почта"
           required
+          @input="onFormChanged"
         />
         <v-text-field
           v-model="password"
@@ -35,7 +36,9 @@
           label="Пароль"
           :type="passwordVisibility ? 'text' : 'password'"
           required
+          :error-messages="formMessages"
           @click:append="passwordVisibility = !passwordVisibility"
+          @input="onFormChanged"
         />
       </v-card-text>
       <v-card-actions
@@ -57,7 +60,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import Component from 'vue-class-component';
-import { authenticateUser } from '@/tools';
+import { authenticateUser } from '@/tools/simulations';
 import { SET_USER } from '@/store/mutation-types';
 
 @Component
@@ -80,6 +83,12 @@ export default class TForm extends Vue {
     (v: string) => !!v || 'Пароль обязателен',
   ];
 
+  formMessages: string[] = [];
+
+  onFormChanged() {
+    this.formMessages = [];
+  }
+
   async authenticate() {
     const formRef = this.$refs?.form;
     const validated = formRef.validate();
@@ -93,8 +102,10 @@ export default class TForm extends Vue {
       if (response) {
         this.$store.commit(SET_USER, response);
         this.$router.push('/');
+        return;
       }
 
+      this.formMessages = ['Данные неверны'];
       this.isFormValid = true;
       this.loading = false;
     }

@@ -41,11 +41,8 @@ import TAppBar from '@/components/TAppBar.vue';
 import TChart from '@/components/TChart.vue';
 import TData from '@/components/TData.vue';
 import TFilter from '@/components/TFilter.vue';
-import {
-  getData,
-  Ticker,
-  Filter,
-} from '@/tools';
+import { getData } from '@/tools/simulations';
+import type { Ticker, Filter } from '@/tools/types';
 import { SET_FILTER } from '@/store/mutation-types';
 
 @Component({

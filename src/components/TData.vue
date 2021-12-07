@@ -24,7 +24,8 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 import { Prop, VModel } from 'vue-property-decorator';
-import { binarySearch, Ticker } from '@/tools';
+import type { Ticker } from '@/tools/types';
+import { binarySearch } from '@/tools';
 
 export type Filter = {
   startDate: number | null;

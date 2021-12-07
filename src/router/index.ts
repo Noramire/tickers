@@ -2,7 +2,7 @@ import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
 import Instruments from '@/views/Instruments.vue';
 import store from '@/store';
-import { validateUser } from '@/tools';
+import { validateUser } from '@/tools/simulations';
 
 Vue.use(VueRouter);
 
@@ -25,7 +25,7 @@ const router = new VueRouter({
   routes,
 });
 
-router.beforeEach(async (to, from, next) => {
+router.beforeEach(async (to, _, next) => {
   const { isAuthenticated } = store.getters;
   if (isAuthenticated && await validateUser()) {
     if (to.name == 'Login') next({ name: 'Instruments' });

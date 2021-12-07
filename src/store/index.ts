@@ -3,8 +3,8 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import createPersistedState from 'vuex-persistedstate';
 import Cookies from 'js-cookie';
-import type { User, Filter } from '@/tools';
 import { SET_USER, REMOVE_USER, SET_FILTER } from './mutation-types';
+import type { User, Filter } from '@/tools/types';
 
 Vue.use(Vuex);
 

@@ -63,7 +63,7 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 import moment from 'moment';
 import { Prop, VModel } from 'vue-property-decorator';
-import type { Filter } from '@/tools';
+import type { Filter } from '@/tools/types';
 
 @Component
 export default class TFilter extends Vue {
